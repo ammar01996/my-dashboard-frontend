@@ -20,7 +20,7 @@ function App() {
   // A. Function to fetch metrics from your Python Backend
   const fetchPythonMetrics = async () => {
     try {
-      const response = await fetch('http://127.0.0.1:8000/api/metrics');
+      const response = await fetch('https://my-dashboard-backend-cevj.onrender.com/api/metrics');
       const data = await response.json();
       setMetrics(data); // Put the Python data into React state
     } catch (error) {
@@ -62,7 +62,7 @@ function App() {
 
     try {
       // Send a POST request to your Python server with the new card details
-      const response = await fetch('http://127.0.0.1:8000/api/metrics', {
+      const response = await fetch('https://my-dashboard-backend-cevj.onrender.com/api/metrics', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(newCard)
