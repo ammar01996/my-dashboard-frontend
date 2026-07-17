@@ -101,7 +101,7 @@ function App() {
       {loadingMetrics ? (
         <div className="loading-spinner-box">
           <div className="spinner"></div>
-          <h3>Loading.....!</h3>
+          <h3>Loading.....</h3>
         </div>
       ) : (
         <div className="metrics-grid">
