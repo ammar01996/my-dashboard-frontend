@@ -4,7 +4,7 @@ import './App.css';
 function App() {
   // 1. Initialize metrics as an empty array. Python will fill this up!
   const [metrics, setMetrics] = useState([]);
-  
+
   // Form states
   const [newTitle, setNewTitle] = useState('');
   const [newValue, setNewValue] = useState('');
@@ -15,7 +15,7 @@ function App() {
   const [loadingAdvice, setLoadingAdvice] = useState(false);
 
   // --- NEW FULL-STACK PIPELINES ---
-
+  const [loadingMetrics, setLoadingMetrics] = useState(true);
 
   // A. Function to fetch metrics from your Python Backend
   const fetchPythonMetrics = async () => {
@@ -25,6 +25,8 @@ function App() {
       setMetrics(data); // Put the Python data into React state
     } catch (error) {
       console.error("Error connecting to Python backend:", error);
+    } finally {
+      setLoadingMetrics(false);
     }
   };
 
@@ -96,42 +98,49 @@ function App() {
         </button>
       </div>
 
-      <div className="metrics-grid">
-        {metrics.map(metric => (
-          <div key={metric.id} className="metric-card">
-            <h3>{metric.title}</h3>
-            <div className="metric-value">{metric.value}</div>
-            <span className="metric-trend">{metric.trend}</span>
-          </div>
-        ))}
-      </div>
+      {loadingMetrics ? (
+        <div className="loading-spinner-box">
+          <div className="spinner"></div>
+          <h3>Loading.....!</h3>
+        </div>
+      ) : (
+        <div className="metrics-grid">
+          {metrics.map(metric => (
+            <div key={metric.id} className="metric-card">
+              <h3>{metric.title}</h3>
+              <div className="metric-value">{metric.value}</div>
+              <span className="metric-trend">{metric.trend}</span>
+            </div>
+          ))}
+        </div>
+      )}
 
       <section className="form-section">
         <h2>Add Custom Metric Card</h2>
         <form onSubmit={handleAddMetric} className="metric-form">
           <div className="input-group">
             <label>Metric Title</label>
-            <input 
-              type="text" 
-              placeholder="e.g., Code Reviews Completed" 
+            <input
+              type="text"
+              placeholder="e.g., Code Reviews Completed"
               value={newTitle}
               onChange={(e) => setNewTitle(e.target.value)}
             />
           </div>
           <div className="input-group">
             <label>Value</label>
-            <input 
-              type="text" 
-              placeholder="e.g., 14 updates" 
+            <input
+              type="text"
+              placeholder="e.g., 14 updates"
               value={newValue}
               onChange={(e) => setNewValue(e.target.value)}
             />
           </div>
           <div className="input-group">
             <label>Trend</label>
-            <input 
-              type="text" 
-              placeholder="Trend" 
+            <input
+              type="text"
+              placeholder="Trend"
               value={newTrend}
               onChange={(e) => setNewTrend(e.target.value)}
             />
