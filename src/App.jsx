@@ -85,7 +85,6 @@ function App() {
     <div className="dashboard-container">
       <header className="dash-header">
         <h1>Full-Stack Metrics Dashboard</h1>
-        <p>Frontend: React (Vite) | Backend: Python (FastAPI)</p>
       </header>
 
       <div className="api-banner">
